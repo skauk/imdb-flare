@@ -26,7 +26,7 @@ export function renderBadge(row) {
 				display: "flex",
 				alignItems: "center",
 				justifyContent: "space-around",
-				gap: 6,
+				gap: 4,
 				width: "100%",
 				height: "100%",
 				backgroundColor: "transparent",
@@ -38,16 +38,16 @@ export function renderBadge(row) {
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "center",
-					padding: "0 .25rem",
+					padding: "0",
 					backgroundColor: "#f5c518",
-					borderRadius: 6,
+					borderRadius: 4,
 				}}
 			>
 				<svg viewBox={LOGO_VIEWBOX} width={logoWidth} height={logoHeight}>
 					<path d={LOGO_D} fill="#000" />
 				</svg>
 			</div>
-			<div style={{ display: "flex", alignItems: "center", gap: 4, color: "#000000", fontSize: 12, fontWeight: 700 }}>
+			<div style={{ display: "flex", alignItems: "center", gap: 3, color: "#000000", fontSize: 12, fontWeight: 700 }}>
 				<span>{rating}</span>
 				{votes && <span style={{ fontSize: 9, fontWeight: 400, color: "#4d4d4d" }}>({votes})</span>}
 			</div>
