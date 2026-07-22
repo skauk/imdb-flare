@@ -4,13 +4,21 @@ import imdbLogoSvg from "../assets/IMDb_PrimaryLogo_Black.svg";
 
 const LOGO_D = imdbLogoSvg.match(/<path[^>]*\sd="([^"]+)"/)[1];
 const LOGO_VIEWBOX = imdbLogoSvg.match(/viewBox="([^"]+)"/)[1];
-const LOGO_HEIGHT = 40;
 const [, , vbWidth, vbHeight] = LOGO_VIEWBOX.split(" ").map(Number);
-const LOGO_WIDTH = Math.round((LOGO_HEIGHT * vbWidth) / vbHeight);
+
+// wrangler.jsonc sets jsx_factory to "h" — esbuild compiles JSX below into
+// calls to this, so it must stay in scope even though nothing calls it directly.
+function h(type, props, ...children) {
+	return { type, props: { ...props, children: children.flat().filter((c) => c !== null && c !== false && c !== undefined) } };
+}
 
 export function renderBadge(row) {
 	const rating = row ? row.averageRating.toFixed(1) : "N/A";
 	const votes = row ? formatShort(row.numVotes) : "";
+	const height = 25;
+	const width = 100;
+	const logoHeight = height - height / 5;
+	const logoWidth = Math.round((logoHeight * vbWidth) / vbHeight);
 
 	return new ImageResponse((
 		<div
@@ -35,16 +43,16 @@ export function renderBadge(row) {
 					borderRadius: 6,
 				}}
 			>
-				<svg viewBox={LOGO_VIEWBOX} width={LOGO_WIDTH} height={LOGO_HEIGHT}>
+				<svg viewBox={LOGO_VIEWBOX} width={logoWidth} height={logoHeight}>
 					<path d={LOGO_D} fill="#000" />
 				</svg>
 			</div>
-			<div style={{ display: "flex", alignItems: "center", gap: 4, color: "#000000", fontSize: 30, fontWeight: 700 }}>
+			<div style={{ display: "flex", alignItems: "center", gap: 4, color: "#000000", fontSize: 12, fontWeight: 700 }}>
 				<span>{rating}</span>
-				{votes && <span style={{ fontSize: 18, fontWeight: 400, color: "#4d4d4d" }}>({votes})</span>}
+				{votes && <span style={{ fontSize: 9, fontWeight: 400, color: "#4d4d4d" }}>({votes})</span>}
 			</div>
 		</div>
-	), { width: 200, height: 50 });
+	), { width, height });
 }
 
 function formatShort(n) {
