@@ -1,6 +1,6 @@
 {
-  "name": "d1-tutorial",
-  "version": "0.0.0",
+  "name": "imdb-flare",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "deploy": "wrangler deploy",
@@ -9,5 +9,8 @@
   },
   "devDependencies": {
     "wrangler": "^4.113.0"
+  },
+  "dependencies": {
+    "@cloudflare/pages-plugin-vercel-og": "^0.1.2"
   }
 }

@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "d1-tutorial",
+	"name": "imdb-flare",
 	"main": "src/index.js",
 	"compatibility_date": "2026-07-22",
 	"observability": {
@@ -12,12 +12,40 @@
 	},
 	"triggers": {
 		"crons": [
-			"* * * * *"
+			"0 5 * * *"
 		]
 	},
 	"upload_source_maps": true,
+	"jsx_factory": "h",
 	"compatibility_flags": [
 		"nodejs_compat"
+	],
+	"d1_databases": [
+		{
+			"binding": "imdb_ratings",
+			"database_name": "imdb-ratings",
+			"database_id": "037e5427-6db3-49fa-8545-b260a61d717b",
+			"remote": true
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "SNAPSHOTS",
+			"bucket_name": "imdb-ratings-snapshots"
+		}
+	],
+	"kv_namespaces": [
+		{
+			"binding": "CACHE",
+			"id": "c27f8177a3184c8798f9f48bd165ab56"
+		}
+	],
+	"rules": [
+		{
+			"type": "Text",
+			"globs": ["**/*.svg"],
+			"fallthrough": true
+		}
 	]
 	/**
 	 * Smart Placement
